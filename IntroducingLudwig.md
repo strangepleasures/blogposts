@@ -1,0 +1,19 @@
+I work on a prototype of a new programming system called Ludwig.
+It is named after Ludwig Wittgenstein, a thinker who paradoxically combined a strife for ultimate clarity with a pragmatic (praxis-oriented) approach to most profound philosophical problems.
+With minimalism, simplicity and pragmatism as core values, it's envisioned to be a continuation of the approach towards programming systems design exemplified by Lisp and Smalltalk.
+
+Code is a complex structure, so we start with creating a data model for code and designing an appropriate storage format for it.
+Of course, that storage format is non-textual. Every programmer knows that they would be ridiculed if they proposed storing customer's data in plain text. Ironically, it's exactly the format we use for storing our precious code.
+Ludwig's approach is different. We aim to design a format that not only follows the logical structure of code, but is also optimized for common access scenarios, such as dependency analysis, batch refactorings, incremental compilation, diffing and merging, etc.
+The image-based approach employed in Smalltalk doesn't scale for large projects, and there's no real need to read your entire project in memory. In fact, at any given moment, you operate on a tiny subset of your entire codebase. In Ludwig, we design our storage format to be as granular as possible, supporting lazy-loading and instant persistence.
+
+We build Ludwig the language out of a tiny and carefully selected list of abstractions that can be freely composed with each other. Those abstractions are closures, immutable lists and records, isolated ("boxed") islands of mutability. Similarly to how fundamental physics strives to unify different kinds of "forces" in one field theory, we want to erase the boundaries between functional, procedural and object-oriented programming styles.
+The design of Ludwig's type system hasn't been finalized yet, but we want to achieve the same "feeling" as in ML-family languages: as much soundness as possible with a few explicit type annotations as possible.
+
+Ludwig employs minimal syntax that is equivalent to Lisp's S-expressions. However, we hope we found a much better way of visualising code structure than parenthesization. Lisp's parentheses are widely hated not because people are stupid, but because they require spotting and counting and thus put an unnecessary cognitive burden. In Ludwig we use what could be called indentation-based syntax, but possibly because of my background in photography, I prefer to speak of structuring code with "negative space". 
+
+A big difference between Ludwig and Lisp is that the former doesn't have and doesn't need macros or any other form of metaprogramming. We believe that metaprogramming makes reasoning about programs much harder. In fact, many most popular Lisp macros could be replaced by high-order functions. Possibly the only reason why they are implemented as macros is that it allows sparing a few parentheses needed to construct a lambda. We simply don't have that problem in Ludwig.
+
+Ludwig programs are supposed to be written in Ludwig IDE or any other IDE knowing how to work with the Ludwig storage format. The IDE provides an intuitive and user-friendly way of displaying and editing such elements of programs as declarations' visibility or documentation comments, which would require supporting (and learning!) a dedicated syntax. 
+
+Possibly the most important feature of Ludwig IDE is that it resolves symbols at the moment you type them, once and for ever. The you select a symbol from a list of autocompletion suggestions, the IDE stores its globally unique identifier (not just its human-readable name) in the code database. This means that you'll never have to redo symbol resolution once again, for example, while compiling the code.
